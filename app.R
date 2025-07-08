@@ -8,6 +8,8 @@ library(shiny)
 # 2. rVal is based on the output of a tibble stored in a reactiveValues object.
 # 3. rValr is r being stored inside of rVal
 
+# To use reactlog, press ctrl/cmd F3 to step through the log
+reactlog::reactlog_enable()
 # Define UI
 ui <- fluidPage(
   titlePanel("Using reactive vs reactiveValues"),
