@@ -6,20 +6,31 @@ library(shiny)
 
 # 1. r is just a df stored as a reactive object
 # 2. rVal is based on the output of a df stored in a reactiveValues object.
-# 3. rvr is r being stored inside of rVal
+# 3. rValr is r being stored inside of rVal
 
 # Define UI
 ui <- fluidPage(
+  titlePanel("Using reactive vs reactiveValues"),
+  tags$body(
+    p("The goal of this app is to show how using", code("reactive"), "and", code("reactiveValues"), "can differ\n
+      The app combines the values of three text inputs using")),
+      tags$ol(
+        tags$li(code("reactive()")),
+        tags$li(code("reactiveValues()")),
+        tags$li(code("reactiveValues(df = reactive())"))
+        ),
   textInput("val1", "Val 1"),
   textInput("val2", "Val 2"),
   textInput("val3", "Val 3"),
-  actionButton("print", "print"),
+  actionButton("print", "Print Objects"),
   actionButton("clear_all", "Clear All"),
+  htmlOutput("printr"),
   verbatimTextOutput("r"),
+  htmlOutput("printrVal"),
   verbatimTextOutput("rVal"),
-  verbatimTextOutput("rValr"),
-  verbatimTextOutput("aval")
-)
+  htmlOutput("printrValr"),
+  verbatimTextOutput("rValr")
+  )
 
 # Define server logic 
 server <- function(input, output) {
@@ -63,7 +74,12 @@ server <- function(input, output) {
     })
     
     observeEvent(input$print, {
-      output$aval <- renderPrint(rvr$r)
+      output$printr <- renderText("<b>reactive Object (vals())</b>")
+      output$printrVal <- renderText("<b>reactiveValues object (rv)</b>")
+      output$printrValr <- renderText("<b>reactive object in a reactiveValues object (rvr$r)</b>")
+      output$r <- renderPrint(vals())
+      output$rval <- renderPrint(rv)
+      output$rValr <- renderPrint(rvr$r)
     })
 }
 # Run the application 
