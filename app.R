@@ -12,8 +12,8 @@ library(shiny)
 ui <- fluidPage(
   titlePanel("Using reactive vs reactiveValues"),
   tags$body(
-    p("The goal of this app is to show how using", code("reactive"), "and", code("reactiveValues"), "can differ\n
-      The app combines the values of three text inputs using:")),
+    p("The goal of this app is to show how using", code("reactive"), "and", code("reactiveValues"), "can differ.
+      The app puts the inputs into a tibble and prints out the results using the following methods:")),
       tags$ol(
         tags$li(code("reactive()")),
         tags$li(code("reactiveValues()")),
